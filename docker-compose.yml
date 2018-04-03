@@ -1,0 +1,20 @@
+version: "3"
+services:
+  unbound:
+    build:
+      context: .
+    image: autechgemz/unbound
+    network_mode: bridge
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "7"
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    healthcheck:
+      test: ["CMD","drill","-o","rd","@localhost","localhost"]
+      interval: 5m
+      timeout: 10s
+      retries: 3

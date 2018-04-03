@@ -13,6 +13,9 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
+    cap_add:
+      - NET_ADMIN
+      - NET_BIND_SERVICE
     healthcheck:
       test: ["CMD","drill","-o","rd","@localhost","localhost"]
       interval: 5m

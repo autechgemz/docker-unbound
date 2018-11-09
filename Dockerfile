@@ -2,14 +2,21 @@ FROM alpine:latest
 
 LABEL maintainer "Kenji Tsumaki <autechgemz@gmail.com>"
 
+ENV TZ Asia/Tokyo
+
 RUN apk upgrade --update --available && \
     apk add --no-cache \
+    tzdata \
+ && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+ && apk add --no-cache \
+    tzdata \
     python \
     runit \
     rsyslog \
     unbound \
     py-unbound \
-    drill
+    drill \
+ && rm -rf /var/cache/apk/*
 
 COPY rsyslog.conf /etc/rsyslog.conf
 COPY unbound.conf /etc/unbound/unbound.conf

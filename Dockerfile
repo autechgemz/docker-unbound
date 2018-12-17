@@ -11,7 +11,7 @@ RUN apk upgrade --update --available && \
  && apk add --no-cache \
     tzdata \
     python \
-    runit \
+    tini \
     rsyslog \
     unbound \
     py-unbound \
@@ -23,9 +23,10 @@ COPY unbound.conf /etc/unbound/unbound.conf
 COPY acl.conf /etc/unbound/acl.conf
 COPY local_data.conf /etc/unbound/local_data.conf
 
-COPY service /service
-RUN chmod 755 /service/*/run
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
 
 EXPOSE 53/tcp 53/udp
 
-ENTRYPOINT ["runsvdir", "-P", "/service/"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/entrypoint.sh"]

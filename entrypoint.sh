@@ -6,4 +6,4 @@ if [ -e $TRUST_ANCHOR ]; then
   /usr/sbin/unbound-anchor -v
 fi
 
-exec /usr/sbin/unbound -d
+/usr/sbin/rsyslogd && exec /usr/sbin/unbound -d

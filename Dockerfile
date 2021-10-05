@@ -1,7 +1,5 @@
 FROM alpine:latest
 
-LABEL maintainer "Kenji Tsumaki <autechgemz@gmail.com>"
-
 ENV TZ Asia/Tokyo
 
 RUN apk upgrade --update --available && \

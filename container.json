@@ -1,0 +1,54 @@
+{
+  "variables": {
+    "timezone": "Asia/Tokyo",
+    "image_from": "autechgemz/unbound-baseimage:latest",
+    "unbound_root": "/chroot"
+  },
+  "builders":[
+    {
+      "type": "docker",
+      "image": "{{user `image_from`}}",
+      "run_command": ["-dit", "{{.Image}}", "/bin/ash"],
+      "commit": true,
+      "pull": false,
+      "changes": [
+        "ENV TZ {{user `timezone`}}",
+        "ENV PATH $PATH:{{user `unbound_root`}}/sbin:{{user `unbound_root`}}/bin",
+        "ENV GOPATH {{user `unbound_root`}}",
+        "ENV LD_LIBRARY_PATH {{user `unbound_root`}}/lib",
+        "EXPOSE 53/tcp 53/udp",
+        "ENTRYPOINT [ \"runsvdir\", \"-P\", \"\/services\/\" ]"
+      ]
+    }
+  ],
+  "provisioners":[
+    {
+      "type": "file",
+      "source": "files/",
+      "destination": "/tmp/ansible-local"
+    },
+    {
+      "type": "ansible-local",
+      "playbook_file": "container.yml",
+      "staging_directory": "/tmp/ansible-local",
+      "extra_arguments": [
+        "-e timezone={{user `timezone`}}",
+        "-e unbound_root={{user `unbound_root`}}",
+        "-e ansible_python_interpreter=/usr/bin/python3"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "apk del --no-cache ansible"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "docker-tag",
+      "repository": "autechgemz/unbound",
+      "tags": "latest"
+    }
+  ]
+}

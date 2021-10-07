@@ -1,21 +1,10 @@
+---
 version: "3"
 services:
   unbound:
-    build:
-      context: .
-    image: autechgemz/unbound
-    network_mode: bridge
-    logging:
-      driver: json-file
-      options:
-        max-size: "50m"
-        max-file: "7"
-    ports:
-      - "53:53/udp"
-      - "53:53/tcp"
-    cap_add:
-      - NET_ADMIN
-      - NET_BIND_SERVICE
+    image: autechgemz/unbound:latest
+    container_name: unbound
+    restart: always
     healthcheck:
       test: ["CMD","drill","-o","rd","@localhost","localhost"]
       interval: 5m

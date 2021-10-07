@@ -1,0 +1,18 @@
+---
+- name: Ansible Provision
+  hosts: all
+  tasks:
+  - name:  copy service script
+    copy:
+      src: services/
+      dest: /services/
+      owner: root
+      group: root
+      mode: 0755
+  - name: copy unbound directory
+    copy:
+      src: etc/unbound/
+      dest: "{{ unbound_root }}/etc/unbound"
+      owner: root
+      group: root
+      mode: 0755

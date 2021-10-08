@@ -9,16 +9,8 @@
       "type": "docker",
       "image": "{{user `image_from`}}",
       "run_command": ["-dit", "{{.Image}}", "/bin/ash"],
-      "commit": true,
       "pull": false,
-      "changes": [
-        "ENV TZ {{user `timezone`}}",
-        "ENV PATH $PATH:{{user `unbound_root`}}/sbin:{{user `unbound_root`}}/bin",
-        "ENV GOPATH {{user `unbound_root`}}",
-        "ENV LD_LIBRARY_PATH {{user `unbound_root`}}/lib",
-        "EXPOSE 53/tcp 53/udp",
-        "ENTRYPOINT [ \"runsvdir\", \"-P\", \"\/services\/\" ]"
-      ]
+      "export_path": "container.tar"
     }
   ],
   "provisioners":[
@@ -46,9 +38,17 @@
   ],
   "post-processors": [
     {
-      "type": "docker-tag",
+      "type": "docker-import",
       "repository": "autechgemz/unbound",
-      "tags": "latest"
+      "tag": "latest",
+      "changes": [
+        "ENV TZ {{user `timezone`}}",
+        "ENV PATH {{user `unbound_root`}}/sbin:{{user `unbound_root`}}/bin:/usr/sbin:/sbin:/usr/bin:/bin",
+        "ENV GOPATH {{user `unbound_root`}}",
+        "ENV LD_LIBRARY_PATH {{user `unbound_root`}}/lib",
+        "EXPOSE 53/tcp 53/udp",
+        "ENTRYPOINT [ \"runsvdir\", \"-P\", \"\/services\/\" ]"
+      ]
     }
   ]
 }

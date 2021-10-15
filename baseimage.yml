@@ -93,7 +93,7 @@
         --disable-rpath \
         --with-ssl \
         --without-pythonmodule \
-        --with-pyunbound \
+        --without-pyunbound \
         --enable-dnstap
       args:
         chdir: "{{ unbound_root }}/unbound-{{ unbound_version }}/"

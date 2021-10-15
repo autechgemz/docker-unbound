@@ -8,7 +8,7 @@
     {
       "type": "docker",
       "image": "{{user `image_from`}}",
-      "run_command": ["-dit", "{{.Image}}", "/bin/ash"],
+      "run_command": ["-dit", "{{.Image}}", "/bin/bash"],
       "pull": false,
       "export_path": "container.tar"
     }
@@ -32,7 +32,11 @@
     {
       "type": "shell",
       "inline": [
-        "apk del --no-cache ansible"
+        "apt-get -y purge ansible python3-apt",
+        "apt-get -y autoclean",
+        "apt-get -y autoremove",
+        "rm -rf /var/lib/apt/lists/*",
+        "rm -rf /var/cache/apt/*"
       ]
     }
   ],

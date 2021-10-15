@@ -1,7 +1,7 @@
 {
   "variables": {
     "timezone": "Asia/Tokyo",
-    "image_from": "alpine:latest",
+    "image_from": "ubuntu:focal",
     "unbound_root": "/chroot",
     "unbound_user": "unbound",
     "unbound_version": "1.13.2"
@@ -10,17 +10,25 @@
     {
       "type": "docker",
       "image": "{{user `image_from`}}",
-      "run_command": ["-dit", "{{.Image}}", "/bin/ash"],
-      "commit": true
+      "run_command": ["-dit", "{{.Image}}", "/bin/bash"],
+      "commit": true,
+      "changes": [
+        "ENV DEBIAN_FRONTEND noninteractive"
+      ]
     }
   ],
   "provisioners":[
     {
+      "type": "file",
+      "source": "files/etc/apt/sources.list",
+      "destination": "/etc/apt/sources.list"
+    },
+    {
       "type": "shell",
       "inline": [
-        "apk update",
-        "apk upgrade --update --available",
-        "apk add --no-cache ansible python3",
+        "apt-get -y update",
+        "apt-get -y upgrade",
+        "apt-get -y install --no-install-recommends ansible python3 python3-apt",
         "mkdir -p /tmp/ansible-local"
       ]
     },

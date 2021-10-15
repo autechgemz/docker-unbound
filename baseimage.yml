@@ -48,7 +48,6 @@
           - python2-dev
           - swig
           - openssl
-          - openssl-dev
         state: installed
   - name: install unbound
     block:

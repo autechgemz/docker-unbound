@@ -152,7 +152,6 @@
           - libtool
           - git
           - golang
-        install_recommends: no
         autoremove: yes
         autoclean: yes
         purge: yes

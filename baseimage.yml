@@ -107,6 +107,7 @@
         --with-ssl \
         --without-pythonmodule \
         --without-pyunbound \
+        --disable-systemd \
         --enable-dnstap
       args:
         chdir: "{{ unbound_root }}/unbound-{{ unbound_version }}/"
@@ -151,7 +152,6 @@
           - libtool
           - git
           - golang
-        install_recommends: no
         autoremove: yes
         autoclean: yes
         purge: yes

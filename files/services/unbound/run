@@ -14,4 +14,4 @@ if grep '^[[:space:]]*auto-trust-anchor-file:' \
 	  || chown unbound.unbound ${ROOT_DIR}/var/unbound/root.key
 fi
 
-exec ${ROOT_DIR}/sbin/unbound -d -p
+exec ${ROOT_DIR}/sbin/unbound -d -p -c /chroot/etc/unbound/unbound.conf

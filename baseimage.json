@@ -28,25 +28,21 @@
       "inline": [
         "apt-get -y update",
         "apt-get -y upgrade",
-        "apt-get -y install --no-install-recommends ansible python3 python3-apt",
-        "mkdir -p /tmp/ansible-local"
+        "apt-get -y install --no-install-recommends python3 python3-apt"
       ]
     },
     {
-      "type": "file",
-      "source": "files/",
-      "destination": "/tmp/ansible-local"
-    },
-    {
-      "type": "ansible-local",
+      "type": "ansible",
+      "user": "root",
       "playbook_file": "baseimage.yml",
-      "staging_directory": "/tmp/ansible-local",
+      "ansible_env_vars": [
+        "ANSIBLE_SSH_ARGS='-o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no'"
+      ],
       "extra_arguments": [
         "-e timezone={{user `timezone`}}",
         "-e unbound_root={{user `unbound_root`}}",
         "-e unbound_user={{user `unbound_user`}}",
-        "-e unbound_version={{user `unbound_version`}}",
-        "-e ansible_python_interpreter=/usr/bin/python3"
+        "-e unbound_version={{user `unbound_version`}}"
       ]
     }
   ],

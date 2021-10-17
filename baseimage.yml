@@ -8,6 +8,7 @@
       apt:
         name:
           - tzdata
+          - ca-certificates
         install_recommends: no
         state: present
     - name: add universe repository
@@ -152,6 +153,11 @@
           - libtool
           - git
           - golang
+          - xz-utils
+          - dnsutils
+          - bzip2
+          - protobuf-c-compiler
+          - swig
         autoremove: yes
         autoclean: yes
         purge: yes

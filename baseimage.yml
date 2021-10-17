@@ -30,7 +30,6 @@
       apt:
         name:
           - runit
-          - dnsutils
           - ldnsutils
           - gosu
         install_recommends: no
@@ -154,7 +153,6 @@
           - git
           - golang
           - xz-utils
-          - dnsutils
           - bzip2
           - protobuf-c-compiler
           - swig

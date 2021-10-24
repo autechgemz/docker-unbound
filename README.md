@@ -6,6 +6,7 @@
 - docker
 - packer
 - make
+- ansible
 
 # How to use
 

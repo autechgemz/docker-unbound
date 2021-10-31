@@ -19,13 +19,6 @@
     - name: update repository cache
       apt:
         update_cache: yes
-    - debug: var=timezone
-    - name: change timezone setting
-      file:
-        src: /usr/share/zoneinfo/{{ timezone }}
-        dest: /etc/localtime
-        state: link
-        force: yes
     - name: install container-dependencies
       apt:
         name:

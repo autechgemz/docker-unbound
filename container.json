@@ -1,6 +1,5 @@
 {
   "variables": {
-    "timezone": "Asia/Tokyo",
     "image_from": "autechgemz/unbound-baseimage:latest",
     "unbound_root": "/chroot"
   },
@@ -43,7 +42,6 @@
       "repository": "autechgemz/unbound",
       "tag": "latest",
       "changes": [
-        "ENV TZ {{user `timezone`}}",
         "ENV PATH {{user `unbound_root`}}/sbin:{{user `unbound_root`}}/bin:/usr/sbin:/sbin:/usr/bin:/bin",
         "ENV GOPATH {{user `unbound_root`}}",
         "ENV LD_LIBRARY_PATH {{user `unbound_root`}}/lib",

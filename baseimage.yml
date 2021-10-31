@@ -25,6 +25,7 @@
           - runit
           - ldnsutils
           - gosu
+          - net-tools
         install_recommends: no
         state: present
     - name: install build-dependencies

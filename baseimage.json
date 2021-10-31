@@ -1,6 +1,5 @@
 {
   "variables": {
-    "timezone": "Asia/Tokyo",
     "image_from": "ubuntu:focal",
     "unbound_root": "/chroot",
     "unbound_user": "unbound",
@@ -39,7 +38,6 @@
         "ANSIBLE_SSH_ARGS='-o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o AddKeysToAgent=no'"
       ],
       "extra_arguments": [
-        "-e timezone={{user `timezone`}}",
         "-e unbound_root={{user `unbound_root`}}",
         "-e unbound_user={{user `unbound_user`}}",
         "-e unbound_version={{user `unbound_version`}}"

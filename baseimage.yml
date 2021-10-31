@@ -54,6 +54,7 @@
           - dns-root-data
           - swig
           - openssl
+          - libnghttp2-dev
         install_recommends: no
         state: present
   - name: install unbound
@@ -101,7 +102,8 @@
         --without-pythonmodule \
         --without-pyunbound \
         --disable-systemd \
-        --enable-dnstap
+        --enable-dnstap \
+        --with-libnghttp2
       args:
         chdir: "{{ unbound_root }}/unbound-{{ unbound_version }}/"
     - name: build unbound
@@ -111,6 +113,18 @@
       make:
         chdir: "{{ unbound_root }}/unbound-{{ unbound_version }}/"
         target: install
+    - name: build dohclient
+      make:
+        chdir: "{{ unbound_root }}/unbound-{{ unbound_version }}/"
+        target: dohclient
+    - name: install dohclient
+      copy:
+        src: "{{ unbound_root }}/unbound-{{ unbound_version }}/dohclient"
+        dest: "{{ unbound_root }}/bin/"
+        owner: root
+        group: root
+        mode: '0755'
+        remote_src: yes
     - name: build golang-dnstap
       shell: |
         go get -u -v github.com/dnstap/golang-dnstap

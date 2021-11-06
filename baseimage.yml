@@ -164,6 +164,7 @@
           - bzip2
           - protobuf-c-compiler
           - swig
+          - sqlite3
         autoremove: yes
         autoclean: yes
         purge: yes

@@ -28,9 +28,9 @@
     {
       "type": "shell",
       "inline": [
-        "apt-get -y purge python3 python3-apt",
-        "apt-get -y autoclean",
+        "apt-get -y remove python3 python3-apt libsqlite3-0",
         "apt-get -y autoremove",
+        "apt-get -y autoclean",
         "rm -rf /var/lib/apt/lists/*",
         "rm -rf /var/cache/apt/*"
       ]
@@ -45,7 +45,7 @@
         "ENV PATH {{user `unbound_root`}}/sbin:{{user `unbound_root`}}/bin:/usr/sbin:/sbin:/usr/bin:/bin",
         "ENV GOPATH {{user `unbound_root`}}",
         "ENV LD_LIBRARY_PATH {{user `unbound_root`}}/lib",
-        "EXPOSE 53/tcp 53/udp",
+        "EXPOSE 53/tcp 443/tcp 53/udp",
         "ENTRYPOINT [ \"runsvdir\", \"-P\", \"\/services\/\" ]"
       ]
     }

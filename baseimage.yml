@@ -165,6 +165,8 @@
           - protobuf-c-compiler
           - swig
           - sqlite3
+          - libfstrm-dev
+          - libprotobuf-dev
         autoremove: yes
         autoclean: yes
         purge: yes

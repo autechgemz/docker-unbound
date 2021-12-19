@@ -3,7 +3,7 @@
     "image_from": "ubuntu:focal",
     "unbound_root": "/chroot",
     "unbound_user": "unbound",
-    "unbound_version": "1.13.2"
+    "unbound_version": "1.14.0"
   },
   "builders":[
     {

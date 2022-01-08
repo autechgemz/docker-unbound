@@ -81,8 +81,8 @@ RUN apk update \
  && chown ${UNBOUND_USER}.${UNBOUND_USER} ${UNBOUND_ROOT}/var/unbound/root.key
 
 COPY files${UNBOUND_CONFDIR} ${UNBOUND_ROOT}${UNBOUND_CONFDIR}/
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x entrypoint.sh
+COPY files/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 VOLUME ["${UNBOUND_ROOT}/${UNBOUND_CONFDIR}", "${UNBOUND_ROOT}/${UNBOUND_DATADIR}"]
 

@@ -54,6 +54,9 @@ RUN apk update \
     --without-pyunbound \
     --disable-systemd \
     --with-libnghttp2 \
+    CC=gcc \
+    CFLAGS='-Os -fomit-frame-pointer -g -D_GNU_SOURCE' \
+    CPPFLAGS='-Os -fomit-frame-pointer' \
  && make \
  && make install \
  && make dohclient \

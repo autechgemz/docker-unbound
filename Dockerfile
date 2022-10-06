@@ -2,7 +2,7 @@ FROM alpine:latest
 
 ENV TZ="Asia/Tokyo"
 
-ARG UNBOUND_VERSION="1.16.0"
+ARG UNBOUND_VERSION="1.16.3"
 ARG UNBOUND_ROOT=/chroot
 ARG UNBOUND_CONFDIR=/etc/unbound
 ARG UNBOUND_DATADIR=/var/unbound

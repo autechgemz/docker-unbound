@@ -2,7 +2,7 @@ FROM alpine:latest
 
 ENV TZ="Asia/Tokyo"
 
-ARG UNBOUND_VERSION="1.16.3"
+ARG UNBOUND_VERSION="1.22.0"
 ARG UNBOUND_ROOT=/chroot
 ARG UNBOUND_CONFDIR=/etc/unbound
 ARG UNBOUND_DATADIR=/var/unbound
@@ -63,7 +63,7 @@ RUN apk update \
  && mkdir -p ${UNBOUND_ROOT}/bin \
  && cp -fp ${UNBOUND_ROOT}/unbound-${UNBOUND_VERSION}/dohclient ${UNBOUND_ROOT}/bin/dohclient \
  && chmod 0755 ${UNBOUND_ROOT}/bin/dohclient \
- && chown root.root ${UNBOUND_ROOT}/bin/dohclient \
+ && chown root:root ${UNBOUND_ROOT}/bin/dohclient \
  && rm -rf ${UNBOUND_ROOT}/unbound-${UNBOUND_VERSION} \
  && rm -f ${UNBOUND_ROOT}/unbound-${UNBOUND_VERSION}.tar.gz \
  && rm -rf ${UNBOUND_ROOT}/share \
@@ -79,9 +79,9 @@ RUN apk update \
  && mknod ${UNBOUND_ROOT}/dev/random c 1 8 \
  && mknod ${UNBOUND_ROOT}/dev/null c 1 3 \
  && mkdir -p ${UNBOUND_ROOT}/var/unbound \
- && chown ${UNBOUND_USER}.${UNBOUND_USER} ${UNBOUND_ROOT}/var/unbound \
+ && chown ${UNBOUND_USER}:${UNBOUND_USER} ${UNBOUND_ROOT}/var/unbound \
  && cp -fp /usr/share/dnssec-root/trusted-key.key ${UNBOUND_ROOT}/var/unbound/root.key \
- && chown ${UNBOUND_USER}.${UNBOUND_USER} ${UNBOUND_ROOT}/var/unbound/root.key
+ && chown ${UNBOUND_USER}:${UNBOUND_USER} ${UNBOUND_ROOT}/var/unbound/root.key
 
 COPY files${UNBOUND_CONFDIR} ${UNBOUND_ROOT}${UNBOUND_CONFDIR}/
 COPY files/entrypoint.sh /entrypoint.sh

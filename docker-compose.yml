@@ -1,5 +1,3 @@
----
-version: "3"
 services:
   unbound:
     image: autechgemz/unbound:latest

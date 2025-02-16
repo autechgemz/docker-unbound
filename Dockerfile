@@ -32,7 +32,7 @@ RUN apk update \
     nghttp2-dev \
     dnssec-root \
  && addgroup -S $UNBOUND_USER \
- && adduser -S -D -H -h $UNBOUND_ROOT -s /sbin/nologin -G $UNBOUND_USER $UNBOUND_USER \
+ && adduser -S -D -H -h ${UNBOUND_ROOT}${UNBOUND_CONFDIR} -s /sbin/nologin -G $UNBOUND_USER $UNBOUND_USER \
  && mkdir -p $UNBOUND_ROOT \
  && curl https://www.nlnetlabs.nl/downloads/unbound/unbound-${UNBOUND_VERSION}.tar.gz -o ${UNBOUND_ROOT}/unbound-${UNBOUND_VERSION}.tar.gz \
  && cd ${UNBOUND_ROOT} \
@@ -54,6 +54,9 @@ RUN apk update \
     --without-pyunbound \
     --disable-systemd \
     --with-libnghttp2 \
+    CC=gcc \
+    CFLAGS='-Os -fomit-frame-pointer -g -D_GNU_SOURCE' \
+    CPPFLAGS='-Os -fomit-frame-pointer' \
  && make \
  && make install \
  && make dohclient \
